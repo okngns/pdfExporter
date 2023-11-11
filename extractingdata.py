@@ -3,7 +3,7 @@ import spacy
 import pandas as pd
 import os
 
-# SpaCy modelini yükleyin
+# Load the SpaCy model
 nlp = spacy.load('en_core_web_sm')
 
 folder_path = 'datas'
@@ -17,25 +17,25 @@ def extract_text_from_pdf(pdf_path):
     doc.close()
     return text
 
-# PDF dosyalarının yollarını alın
+# Get the paths of PDF files
 pdf_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith('.pdf')]
 
 all_entities = []
 
-# Her bir PDF'yi işleyin ve entiteleri toplayın
+# Process each PDF and collect entities
 for pdf_file in pdf_files:
     text = extract_text_from_pdf(pdf_file)
     
-    # Her bir PDF metnini SpaCy ile işleyin
+    # Process each PDF text with SpaCy
     doc = nlp(text)
     
-    # Entiteleri toplayın
+    # Collect entities
     entities = [(ent.text, ent.label_) for ent in doc.ents]
     
-    # Tüm entiteleri bir listeye ekleyin
+    # Add all entities to a list
     all_entities.extend(entities)
 
-# Tüm entiteleri DataFrame'e dönüştürün
+# Convert all entities to a DataFrame
 merged_df = pd.DataFrame(all_entities, columns=['Entity', 'Type'])
-# Sonuçları görüntüleyin
+# Display the results
 print(merged_df)
