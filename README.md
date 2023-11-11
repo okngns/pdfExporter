@@ -18,3 +18,24 @@ This Python script extracts text from PDF files and identifies named entities us
 
    ```bash
    python entity_extractor.py
+   
+## Sample Output
+
+Below is a sample DataFrame output containing named entities extracted from each PDF file:
+```
+        Entity      Type
+1          2018      DATE
+2          2019      DATE
+3        61,550  CARDINAL
+4        63,341  CARDINAL
+5           2.9  CARDINAL
+...         ...       ...
+126656  Cluj-Napoca       ORG
+126657  Cluj-Napoca       ORG
+126658  Cluj-Napoca       ORG
+126659           68  CARDINAL
+126660           69  CARDINAL
+```
+
+
+
