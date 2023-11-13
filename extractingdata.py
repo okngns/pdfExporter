@@ -1,9 +1,9 @@
-import fitz  # PyMuPDF
+import fitz  
 import spacy
 import pandas as pd
 import os
 
-# Load the SpaCy model
+# Spacy modelini yuklemek icin kullaniyoruz
 nlp = spacy.load('en_core_web_sm')
 
 folder_path = 'datas'
@@ -17,25 +17,26 @@ def extract_text_from_pdf(pdf_path):
     doc.close()
     return text
 
-# Get the paths of PDF files
+# PDF dosyalarindan path leri almak icin 
 pdf_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith('.pdf')]
 
 all_entities = []
 
-# Process each PDF and collect entities
+# butun pdfleri calistir ve entiti topla
 for pdf_file in pdf_files:
     text = extract_text_from_pdf(pdf_file)
     
-    # Process each PDF text with SpaCy
+    # PDF leri text olarak calistiriyoruz Spacy kullanarak
     doc = nlp(text)
     
-    # Collect entities
+    # entitileri topla
     entities = [(ent.text, ent.label_) for ent in doc.ents]
     
-    # Add all entities to a list
+    # butun entitileri dosyaya ekle
     all_entities.extend(entities)
 
-# Convert all entities to a DataFrame
+# butun entitileri data frame e donustur
 merged_df = pd.DataFrame(all_entities, columns=['Entity', 'Type'])
-# Display the results
+
+
 print(merged_df)
